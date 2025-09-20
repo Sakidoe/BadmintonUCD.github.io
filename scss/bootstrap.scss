@@ -1,0 +1,33 @@
+/******* Customized Bootstrap ********/
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap');
+
+$primary: #000000;
+$secondary: #555555;
+$light: #E6F0EF;
+$dark: #03201F;
+
+$font-family-base: 'Raleway', sans-serif;
+
+$headings-font-family: "Raleway", sans-serif;
+
+$body-color: $secondary;
+
+$headings-color: $dark;
+
+$headings-font-weight: 400;
+
+$display-font-weight: 400;
+
+$enable-responsive-font-sizes: true;
+
+$border-radius: 0px;
+
+$border-radius-sm: $border-radius;
+
+$border-radius-lg: $border-radius;
+
+$link-decoration: none;
+
+$enable-negative-margins: true;
+
+@import "bootstrap/scss/bootstrap";

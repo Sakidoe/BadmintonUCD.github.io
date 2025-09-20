@@ -1,0 +1,12 @@
+{
+  "name": "badmintonucd_v2",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static site for BadmintonUCD",
+  "scripts": {
+    "dev": "npx live-server --port=8080 --no-browser"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
+}
