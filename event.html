@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>BUCD Events</title>
+    <meta name="description" content="Event details for the Badminton Club at UC Davis." />
+    <meta name="theme-color" content="#fff7ea" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  </head>
+  <body data-page="event">
+    <div data-mount="nav"></div>
+
+    <!-- Always-visible way back to the events list -->
+    <a class="btn btn--ghost back-btn" href="/events.html">← All events</a>
+
+    <main>
+      <!-- Content for this page comes from src/content/events/<slug>.mdx
+           (the slug is the ?e= query parameter). -->
+      <header class="event-hero" data-event-hero>
+        <div class="container--narrow" data-mount="event-hero"></div>
+      </header>
+
+      <section class="section">
+        <div class="container--narrow event-body" data-event-body></div>
+      </section>
+    </main>
+
+    <div data-mount="footer"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

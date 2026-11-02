@@ -1,0 +1,516 @@
+/* ─────────────────────────────────────────────────────────────
+   BASE — reset, typography, layout helpers, buttons, reveal
+   ───────────────────────────────────────────────────────────── */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  overflow-x: clip;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--cream);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+.display {
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: var(--text-4xl);
+}
+h2 {
+  font-size: var(--text-3xl);
+}
+h3 {
+  font-size: var(--text-2xl);
+}
+h4 {
+  font-size: var(--text-xl);
+  letter-spacing: -0.01em;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+:focus-visible {
+  outline: 3px solid var(--blue-3);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+::selection {
+  background: var(--blue);
+  color: var(--ink);
+}
+
+/* ── Backgrounds ────────────────────────────────────────── */
+
+/* Notebook grid in pastel blue */
+.grid-bg {
+  background-color: var(--cream);
+  background-image:
+    linear-gradient(to right, rgba(124, 189, 230, 0.28) 2px, transparent 2px),
+    linear-gradient(to bottom, rgba(124, 189, 230, 0.28) 2px, transparent 2px);
+  background-size: 72px 72px;
+  background-position: center top;
+}
+
+/* ── Layout ─────────────────────────────────────────────── */
+
+.container {
+  width: min(100% - 2 * var(--gutter), var(--container));
+  margin-inline: auto;
+}
+
+.container--narrow {
+  width: min(100% - 2 * var(--gutter), var(--container-narrow));
+  margin-inline: auto;
+}
+
+.section {
+  padding-block: var(--section-y);
+  position: relative;
+  overflow-x: clip;
+}
+
+.section--tint {
+  background: var(--cream-2);
+}
+
+/* Home page band behind the Aggie Open poster — photo of the UC Center arena,
+   faded under a light-navy wash so it sits back behind the card (raise/lower
+   the 0.6 alpha to show more/less photo). Ticker bars sit flush on its top and
+   bottom edges, so the padding moves inside. */
+.section--fall-navy {
+  background:
+    linear-gradient(rgba(215, 221, 234, 0.6), rgba(215, 221, 234, 0.6)),
+    #d7ddea url('/img/davis_open/uc-center.jpg') center / cover no-repeat;
+  padding-block: 0;
+}
+
+.section--fall-navy > .container {
+  padding-block: var(--section-y);
+}
+
+/* "NEW!" ticker — thin sticker-style tape that scrolls left → right */
+.ticker {
+  background: var(--paper);
+  border-block: var(--stroke) solid var(--ink);
+  overflow: hidden;
+  padding-block: 0.4rem;
+  user-select: none;
+}
+
+.ticker__track {
+  display: flex;
+  width: max-content;
+  animation: ticker-ltr 80s linear infinite;
+}
+
+.ticker__group {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 1.1rem;
+  padding-right: 1.1rem;
+}
+
+.ticker__item {
+  color: var(--red);
+  font-size: var(--text-sm);
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.ticker__sep {
+  color: var(--rust);
+  font-size: 0.7rem;
+  line-height: 1;
+}
+
+/* Two identical groups: sliding by -50% → 0 loops seamlessly.
+   Each group must be wider than the viewport (32 items ≈ 2,700px). */
+@keyframes ticker-ltr {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker__track {
+    animation: none;
+  }
+}
+
+.section--blue {
+  background: var(--blue-2);
+}
+
+.section--paper {
+  background: var(--paper);
+}
+
+/* Soft light-gray panel (About → mission) */
+.section--gray {
+  background: #f0efec;
+}
+
+/* Feature blocks + CTA bands — pastel blue panels (formerly black & lavender).
+   CTA bands get a ruled top edge to match the home page's "Ready to play?" band. */
+.section--dark,
+.section--navy-deep {
+  background: var(--blue-2);
+  color: var(--ink);
+}
+
+.section--navy-deep {
+  border-top: var(--stroke) solid var(--ink);
+}
+
+/* Section right after the home hero: pull up so the hero's fade lands on it */
+.section--after-hero {
+  padding-top: var(--space-6);
+}
+
+/* Thick divider line between sections, like a comic panel edge */
+.section--ruled {
+  border-top: var(--stroke) solid var(--ink);
+}
+
+.section-head {
+  max-width: 44rem;
+  margin-bottom: var(--space-7);
+}
+
+.section-head--center {
+  margin-inline: auto;
+  text-align: center;
+}
+
+/* Kicker = small sticker label */
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0.8rem;
+  border: var(--stroke-thin) solid var(--ink);
+  border-radius: var(--r-pill);
+  background: var(--blue);
+  box-shadow: var(--sticker-shadow-sm);
+  font-size: var(--text-xs);
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-bottom: var(--space-4);
+  transform: rotate(-1.5deg);
+}
+
+.kicker--pink {
+  background: var(--pink);
+}
+.kicker--lavender {
+  background: var(--lavender);
+}
+.kicker--cream {
+  background: var(--cream);
+}
+
+/* Bigger sticker label (About → "Our mission") */
+.kicker--lg {
+  font-size: var(--text-base);
+  padding: 0.55rem 1.4rem;
+  border-width: var(--stroke);
+  box-shadow: var(--sticker-shadow);
+  margin-bottom: var(--space-6);
+}
+
+/* Blue kicker would vanish on a blue panel — go cream */
+.section--dark .kicker,
+.section--navy-deep .kicker {
+  background: var(--cream);
+}
+
+.lede {
+  font-size: var(--text-lg);
+  color: var(--ink-2);
+  max-width: 40rem;
+}
+
+.mt-4 {
+  margin-top: var(--space-4);
+}
+.mt-6 {
+  margin-top: var(--space-6);
+}
+.mt-7 {
+  margin-top: var(--space-7);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ── Buttons — outlined stickers ────────────────────────── */
+
+.btn {
+  --btn-bg: var(--blue);
+  --btn-fg: var(--ink);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 3rem;
+  padding: 0.7rem 1.4rem;
+  border: var(--stroke) solid var(--ink);
+  border-radius: var(--r-pill);
+  font-weight: 800;
+  font-size: var(--text-sm);
+  letter-spacing: 0.01em;
+  color: var(--btn-fg);
+  background: var(--btn-bg);
+  box-shadow: var(--sticker-shadow-sm);
+  transition:
+    transform var(--dur) var(--ease-spring),
+    box-shadow var(--dur) var(--ease-out),
+    background-color var(--dur) var(--ease-out);
+  white-space: nowrap;
+}
+
+.btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--sticker-shadow);
+}
+
+.btn:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 var(--ink);
+  transition-duration: 80ms;
+}
+
+.btn svg {
+  width: 1.1em;
+  height: 1.1em;
+  transition: transform var(--dur) var(--ease-spring);
+}
+
+.btn:hover svg {
+  transform: translateX(3px);
+}
+
+.btn--gold {
+  --btn-bg: var(--pink);
+}
+
+.btn--ghost {
+  --btn-bg: var(--cream);
+}
+
+.btn--lavender {
+  --btn-bg: var(--lavender);
+}
+
+.btn--lg {
+  min-height: 3.5rem;
+  padding: 0.9rem 1.9rem;
+  font-size: var(--text-base);
+}
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+/* ── Scroll reveal ──────────────────────────────────────── */
+/* Add data-reveal to any element. Optional data-reveal-delay="120" (ms). */
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity var(--dur-slow) var(--ease-out),
+    transform var(--dur-slow) var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+[data-reveal='left'] {
+  transform: translateX(-32px);
+}
+[data-reveal='right'] {
+  transform: translateX(32px);
+}
+[data-reveal='scale'] {
+  transform: scale(0.94);
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ── Page header (inner pages) ──────────────────────────── */
+
+.page-hero {
+  padding-top: calc(var(--nav-top) + var(--nav-height) + var(--space-8));
+  padding-bottom: var(--space-8);
+  color: var(--ink);
+  overflow: hidden;
+  position: relative;
+  border-bottom: var(--stroke) solid var(--ink);
+}
+
+.page-hero--fall {
+  background: var(--peach-3);
+  border-bottom-color: var(--rust);
+}
+
+.page-hero--fall h1 {
+  color: var(--rust);
+}
+
+.page-hero--fall .kicker {
+  background: var(--peach);
+  border-color: var(--rust);
+  color: var(--rust-2);
+  box-shadow: 3px 3px 0 var(--rust);
+}
+
+/* About page header — grads photo under a cream wash so the type stays readable
+   (raise/lower the 0.72 alpha to show less/more photo) */
+.page-hero--about {
+  background:
+    linear-gradient(rgba(255, 247, 234, 0.72), rgba(255, 247, 234, 0.72)),
+    var(--cream) url('/img/grads/about-hero-grads.jpg') center 35% / cover no-repeat;
+}
+
+/* Board page header — grads photo, same cream wash as the About header */
+.page-hero--board {
+  background:
+    linear-gradient(rgba(255, 247, 234, 0.72), rgba(255, 247, 234, 0.72)),
+    var(--cream) url('/img/grads/board-hero-grads.jpg') center 45% / cover no-repeat;
+}
+
+.page-hero h1 {
+  font-size: var(--text-display);
+  line-height: 0.98;
+  max-width: 14ch;
+}
+
+.page-hero .lede {
+  margin-top: var(--space-5);
+}
+
+.page-hero__deco {
+  position: absolute;
+  right: -4rem;
+  bottom: -6rem;
+  width: clamp(16rem, 30vw, 28rem);
+  opacity: 0.9;
+  pointer-events: none;
+  animation: float 7s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-6deg);
+  }
+  50% {
+    transform: translateY(-14px) rotate(-3deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-hero__deco {
+    animation: none;
+  }
+}

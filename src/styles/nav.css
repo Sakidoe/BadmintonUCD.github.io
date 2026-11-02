@@ -1,0 +1,368 @@
+/* ─────────────────────────────────────────────────────────────
+   NAV — floating outlined pill (frosted cream) with a sliding
+   hover highlight and the Fall Open button in the centre.
+   ───────────────────────────────────────────────────────────── */
+
+.nav-wrap {
+  position: fixed;
+  inset: var(--nav-top) 0 auto 0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  padding-inline: var(--space-4);
+  pointer-events: none;
+}
+
+.nav {
+  pointer-events: auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  height: var(--nav-height);
+  padding: 0.375rem 0.5rem 0.375rem 0.625rem;
+  border-radius: var(--r-pill);
+  color: var(--ink);
+  border: var(--stroke) solid var(--ink);
+  background: rgba(255, 247, 234, 0.72);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  backdrop-filter: blur(18px) saturate(160%);
+  box-shadow: var(--sticker-shadow);
+  transition:
+    box-shadow var(--dur) var(--ease-out),
+    background var(--dur) var(--ease-out),
+    transform var(--dur) var(--ease-out);
+}
+
+.nav.is-scrolled {
+  background: rgba(255, 247, 234, 0.9);
+}
+
+/* Brand */
+.nav__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.75rem 0.4rem 0.4rem;
+  border-radius: var(--r-pill);
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  font-size: var(--text-sm);
+  white-space: nowrap;
+}
+
+/* Brand mark: the club's cow in a bordered circle */
+.nav__brand-mark {
+  width: 2.15rem;
+  height: 2.15rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: var(--blue-2);
+  border: var(--stroke-thin) solid var(--ink);
+  color: var(--ink);
+  transition: transform var(--dur) var(--ease-spring);
+}
+
+.nav__brand-mark img {
+  width: 88%;
+  height: 88%;
+  object-fit: contain;
+}
+
+.nav__brand:hover .nav__brand-mark {
+  transform: rotate(-12deg) scale(1.06);
+}
+
+.nav__brand-mark svg {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+/* Link groups with the sliding pill */
+.nav__links {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.125rem;
+  isolation: isolate;
+}
+
+.nav__pill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  border-radius: var(--r-pill);
+  background: var(--blue);
+  border: var(--stroke-thin) solid var(--ink);
+  opacity: 0;
+  z-index: -1;
+  transition:
+    transform 420ms var(--ease-spring),
+    width 420ms var(--ease-spring),
+    opacity var(--dur) var(--ease-out);
+  will-change: transform, width;
+}
+
+.nav__link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.55rem 0.95rem;
+  border-radius: var(--r-pill);
+  font-weight: 700;
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.nav__link:hover,
+.nav__link.is-active {
+  color: var(--ink);
+}
+
+.nav__link.is-active {
+  font-weight: 800;
+}
+
+/* Centre CTA — the Fall Open button */
+.nav__cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-inline: 0.375rem;
+  padding: 0.55rem 1.05rem;
+  border-radius: var(--r-pill);
+  font-weight: 900;
+  font-size: var(--text-sm);
+  color: var(--rust-2);
+  background: var(--peach);
+  border: var(--stroke-thin) solid var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
+  overflow: hidden;
+  white-space: nowrap;
+  transition:
+    transform var(--dur) var(--ease-spring),
+    box-shadow var(--dur) var(--ease-out);
+}
+
+.nav__cta svg {
+  width: 1rem;
+  height: 1rem;
+  transition: transform var(--dur) var(--ease-spring);
+}
+
+/* HNDRD sponsor logo (navy copies of img/art/hndrd_logo_1.png).
+   Full wordmark on desktop, swoosh-only mark on phones. */
+.nav__cta-logo {
+  height: 0.7rem;
+  width: auto;
+  transition: transform var(--dur) var(--ease-spring);
+}
+
+.nav__cta-logo--mark {
+  display: none;
+}
+
+.nav__cta:hover .nav__cta-logo {
+  transform: translateX(2px) skewX(-8deg);
+}
+
+.nav__cta::before {
+  /* shimmer sweep */
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.6) 50%,
+    transparent 65%
+  );
+  transform: translateX(-120%);
+  transition: transform 700ms var(--ease-out);
+}
+
+.nav__cta:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.nav__cta:hover::before {
+  transform: translateX(120%);
+}
+
+.nav__cta:hover svg {
+  transform: rotate(-20deg) translateY(-1px);
+}
+
+.nav__cta-label-short {
+  display: none;
+}
+
+.nav__cta-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--coral);
+  border: 1.5px solid var(--ink);
+  box-shadow: 0 0 0 0 rgba(232, 150, 127, 0.6);
+  animation: ping 2.2s var(--ease-out) infinite;
+}
+
+@keyframes ping {
+  0% {
+    box-shadow: 0 0 0 0 rgba(232, 150, 127, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 7px rgba(232, 150, 127, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(232, 150, 127, 0);
+  }
+}
+
+/* Burger (mobile only) */
+.nav__burger {
+  display: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  place-items: center;
+  margin-left: 0.125rem;
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.nav__burger:hover {
+  background: var(--blue-2);
+}
+
+.nav__burger span {
+  display: block;
+  width: 1.1rem;
+  height: 3px;
+  border-radius: 3px;
+  background: var(--ink);
+  transition: transform var(--dur) var(--ease-spring), opacity var(--dur-fast);
+}
+
+.nav__burger span + span {
+  margin-top: 4px;
+}
+
+.nav.is-open .nav__burger span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.nav.is-open .nav__burger span:nth-child(2) {
+  opacity: 0;
+}
+.nav.is-open .nav__burger span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Mobile menu sheet */
+.nav__menu {
+  display: none;
+}
+
+@media (max-width: 860px) {
+  .nav-wrap {
+    padding-inline: var(--space-3);
+  }
+
+  .nav {
+    width: 100%;
+    max-width: 30rem;
+    justify-content: space-between;
+    padding-right: 0.375rem;
+  }
+
+  .nav__links {
+    display: none;
+  }
+
+  .nav__cta {
+    margin-inline: auto 0.25rem;
+    padding: 0.5rem 0.85rem;
+    font-size: var(--text-xs);
+  }
+
+  .nav__cta-label-long {
+    display: none;
+  }
+
+  .nav__cta-label-short {
+    display: inline;
+  }
+
+  .nav__cta-logo--full {
+    display: none;
+  }
+
+  .nav__cta-logo--mark {
+    display: block;
+    height: 0.65rem;
+  }
+
+  .nav__burger {
+    display: grid;
+  }
+
+  .nav__menu {
+    pointer-events: auto;
+    position: absolute;
+    top: calc(var(--nav-height) + 0.75rem);
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.5rem;
+    border-radius: var(--r-lg);
+    border: var(--stroke) solid var(--ink);
+    background: rgba(255, 247, 234, 0.94);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    box-shadow: var(--sticker-shadow);
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+    transform-origin: top center;
+    visibility: hidden;
+    transition:
+      opacity var(--dur) var(--ease-out),
+      transform var(--dur) var(--ease-spring),
+      visibility 0s linear var(--dur);
+  }
+
+  .nav__menu.is-open {
+    opacity: 1;
+    transform: none;
+    visibility: visible;
+    transition-delay: 0s;
+  }
+
+  .nav__menu .nav__link {
+    padding: 0.85rem 1rem;
+    font-size: var(--text-base);
+    border-radius: var(--r-md);
+  }
+
+  .nav__menu .nav__link.is-active {
+    background: var(--blue);
+    border: var(--stroke-thin) solid var(--ink);
+  }
+
+  .nav__menu .nav__link:hover {
+    background: var(--blue-2);
+  }
+}
+
+@media (max-width: 380px) {
+  .nav__brand-text {
+    display: none;
+  }
+}

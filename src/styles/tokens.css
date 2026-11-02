@@ -1,0 +1,108 @@
+/* ─────────────────────────────────────────────────────────────
+   DESIGN TOKENS — "sticker" style matched to the cow mascot art:
+   cream fills, thick black outlines with a hard offset shadow,
+   pastel blue / pink accents. (Lavender/purple tokens kept for legacy rules.)
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  /* Palette (sampled from the artwork) */
+  --cream: #fff7ea;
+  --cream-2: #fff0d9;
+  --paper: #fffdf8;
+  --ink: #141414;
+  --ink-2: #3b3b3b;
+  --ink-3: #6f6f6f;
+  --blue: #a5d3f2;
+  --blue-2: #d8eaf8;
+  --blue-3: #7cbde6;
+  --pink: #f7c4b3;
+  --pink-2: #ffdccf;
+  --coral: #e8967f;
+  --brown: #a8705b;
+  /* Fall Open — navy from the Aggie Open 26 shirt, peach/orange print accents (token names kept as --rust for compatibility) */
+  --rust: #1f2539;
+  --rust-2: #141829;
+  --peach: #f2a97a;
+  --peach-2: #fbe0cb;
+  --peach-3: #fff1e4;
+  --red: #d6342a; /* "NEW!" ticker on the home page Fall Open band */
+
+  /* Spring Open — from the purple poster */
+  --lavender: #cbc3ff;
+  --lavender-2: #e6e2ff;
+  --purple: #5b3d8a;
+  --black: #0b0b0b;
+
+  /* Legacy aliases still referenced by a few rules */
+  --navy: var(--ink);
+  --navy-600: var(--ink-2);
+  --navy-800: var(--black);
+  --navy-900: var(--black);
+  --gold: var(--blue);
+  --gold-500: var(--blue-2);
+  --gold-600: var(--blue-3);
+  --teal: var(--blue);
+  --sky: var(--blue-3);
+  --on-dark: #fff7ea;
+  --on-dark-2: rgba(255, 247, 234, 0.75);
+  --line: rgba(20, 20, 20, 0.12);
+  --line-strong: rgba(20, 20, 20, 0.25);
+
+  /* Outline system */
+  --stroke: 3px;
+  --stroke-thin: 2px;
+  --sticker-shadow: 5px 5px 0 var(--ink);
+  --sticker-shadow-lg: 8px 8px 0 var(--ink);
+  --sticker-shadow-sm: 3px 3px 0 var(--ink);
+
+  /* Type — Raleway everywhere */
+  --font: 'Raleway', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.3125rem;
+  --text-2xl: clamp(1.5rem, 1.2rem + 1.4vw, 2rem);
+  --text-3xl: clamp(2rem, 1.5rem + 2.4vw, 3rem);
+  --text-4xl: clamp(2.5rem, 1.6rem + 4vw, 4.25rem);
+  --text-display: clamp(3rem, 1.5rem + 6.5vw, 6.5rem);
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+  --section-y: clamp(4rem, 3.5rem + 4vw, 7rem);
+  --gutter: clamp(1rem, 0.5rem + 3vw, 3rem);
+  --container: 76rem;
+  --container-narrow: 46rem;
+
+  /* Radii */
+  --r-sm: 10px;
+  --r-md: 18px;
+  --r-lg: 24px;
+  --r-xl: 32px;
+  --r-pill: 999px;
+
+  /* Soft shadows (used sparingly — the sticker shadow does most of the work) */
+  --shadow-sm: 0 1px 2px rgba(20, 20, 20, 0.06);
+  --shadow-md: 0 10px 30px -12px rgba(20, 20, 20, 0.25);
+  --shadow-lg: 0 24px 60px -24px rgba(20, 20, 20, 0.35);
+  --shadow-gold: none;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast: 160ms;
+  --dur: 300ms;
+  --dur-slow: 700ms;
+
+  /* Nav */
+  --nav-height: 60px;
+  --nav-top: 14px;
+}

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>BUCD Events</title>
+    <meta name="description" content="Weekly practices, school meets, bonding events, the Irvine trip, Collegiate Nationals, the banquet and the Davis Open." />
+    <meta name="theme-color" content="#022851" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  </head>
+  <body data-page="events">
+    <div data-mount="nav"></div>
+
+    <main>
+      <!-- SECTION: PAGE HEADER -->
+      <header class="page-hero">
+        <div class="container">
+          <span class="kicker">Events</span>
+          <h1>Something on the calendar every week.</h1>
+          <p class="lede">
+            Featuring 3x practices every week, boba runs, team trips to other states, collegiate competitions, and so much more.
+          </p>
+        </div>
+      </header>
+
+      <!-- SECTION: PRACTICE SCHEDULE  (src/data/events.ts → practiceSchedule) -->
+      <section class="section section--blue">
+        <div class="container">
+          <div class="section-head" data-reveal>
+            <span class="kicker">Weekly practices</span>
+            <h2>Birds provided for games, and endless amounts of competition</h2>
+          </div>
+          <div class="schedule" data-mount="schedule" data-stagger="90"></div>
+        </div>
+      </section>
+
+      <!-- SECTION: DAVIS SPRING OPEN  (src/data/springOpen.ts) -->
+      <section class="section section--ruled" aria-label="Davis Spring Open" id="spring-open">
+        <div class="container" data-mount="spring-open"></div>
+      </section>
+
+      <!-- SECTION: ALL EVENTS  (src/data/events.ts → events; each card opens event.html?e=slug) -->
+      <section class="section section--paper">
+        <div class="container">
+          <div class="section-head" data-reveal>
+            <span class="kicker">The year</span>
+            <h2>Everything we do.</h2>
+            <p class="lede mt-4">Tap any event for the details.</p>
+          </div>
+          <div class="cards" data-mount="events" data-stagger="90"></div>
+        </div>
+      </section>
+
+      <!-- SECTION: CTA -->
+      <section class="section section--navy-deep cta-band">
+        <div class="container" data-reveal>
+          <h2>Want in on the next one?</h2>
+          <div class="btn-row">
+            <a class="btn btn--gold btn--lg" href="/join.html">How to join</a>
+            <a class="btn btn--ghost btn--lg" href="https://discord.gg/bssTuRwBZx" target="_blank" rel="noopener">Announcements on Discord</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div data-mount="footer"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

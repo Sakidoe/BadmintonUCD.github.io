@@ -1,0 +1,262 @@
+/* ─────────────────────────────────────────────────────────────
+   HOME HERO — pinned scroll scene (the cow smashes the bird)
+   Formal photo banner, the cow bottom-left, copy centred right.
+   The animation lives in src/hero/rallyAnimation.ts.
+   ───────────────────────────────────────────────────────────── */
+
+.hero {
+  position: relative;
+  /* Height = how long the scroll-driven animation lasts. */
+  height: 320vh;
+  color: var(--ink);
+}
+
+.hero__stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  background: var(--cream);
+}
+
+/* Banner photo behind everything */
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.hero__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 35%;
+  will-change: opacity, transform;
+}
+
+/* Cream wash over the photo so the type and the cow stay legible;
+   it thins out when the smash lands. */
+.hero__veil {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(255, 247, 234, 0.85) 0%, rgba(255, 247, 234, 0.6) 50%, rgba(255, 247, 234, 0.9) 100%);
+  pointer-events: none;
+}
+
+/* The illustration fills the stage */
+.hero__scene {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.hero__scene svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Copy sits on top of the scene */
+.hero__copy {
+  position: relative;
+  z-index: 2;
+  align-self: center;
+  padding-top: calc(var(--nav-top) + var(--nav-height));
+  pointer-events: none;
+}
+
+.hero__copy > * {
+  pointer-events: auto;
+}
+
+/* Copy column: right half of the stage, centred text (the cow has the left) */
+.hero__col {
+  margin-left: auto;
+  width: min(100%, 40rem);
+  text-align: center;
+}
+
+.hero__col .kicker,
+.hero__col .btn-row {
+  justify-content: center;
+}
+
+.hero__col .hero__title,
+.hero__col .hero__lede,
+.hero__col h2 {
+  margin-inline: auto;
+}
+
+.hero__hint .hero__col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.hero__title {
+  font-size: var(--text-display);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  max-width: 11ch;
+  color: var(--ink);
+}
+
+.hero__title em {
+  font-style: normal;
+  color: var(--ink);
+  /* pastel highlighter behind the words */
+  background: linear-gradient(transparent 55%, var(--blue) 55%, var(--blue) 92%, transparent 92%);
+  padding-inline: 0.08em;
+}
+
+.hero__lede {
+  margin-top: var(--space-5);
+  font-size: var(--text-lg);
+  max-width: 34rem;
+  color: var(--ink-2);
+}
+
+.hero__actions {
+  margin-top: var(--space-6);
+}
+
+/* Second headline that swaps in after the hit */
+.hero__punch {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  align-items: center;
+  padding-top: calc(var(--nav-top) + var(--nav-height));
+  pointer-events: none;
+  opacity: 0;
+}
+
+.hero__punch .btn {
+  pointer-events: auto;
+}
+
+.hero__punch h2 {
+  font-size: clamp(2.5rem, 1.4rem + 4.6vw, 5rem);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  max-width: 11ch;
+}
+
+.hero__punch h2 em {
+  font-style: normal;
+  background: linear-gradient(transparent 55%, var(--pink) 55%, var(--pink) 92%, transparent 92%);
+  padding-inline: 0.08em;
+}
+
+/* Dissolves the bottom of the stage into the page background */
+.hero__fade {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 40%;
+  background: linear-gradient(to bottom, rgba(255, 247, 234, 0) 0%, var(--cream) 100%);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Scroll hint */
+.hero__hint {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding-bottom: var(--space-6);
+  font-size: var(--text-xs);
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.hero__hint-line {
+  width: 3px;
+  height: 2.5rem;
+  border-radius: 3px;
+  background: linear-gradient(to bottom, var(--ink), transparent);
+  animation: hint 1.8s var(--ease-out) infinite;
+  transform-origin: top;
+}
+
+@keyframes hint {
+  0% {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+  40% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleY(1) translateY(1rem);
+    opacity: 0;
+  }
+}
+
+/* Reduced motion: no pin, static composed scene */
+@media (prefers-reduced-motion: reduce) {
+  .hero {
+    height: auto;
+    min-height: 100vh;
+  }
+  .hero__stage {
+    position: relative;
+    height: auto;
+    min-height: 100vh;
+  }
+  .hero__punch {
+    display: none;
+  }
+  .hero__hint-line {
+    animation: none;
+  }
+  .hero__fade {
+    opacity: 1;
+  }
+}
+
+/* Phones: the cow takes the lower third, copy sits above it */
+@media (max-width: 860px) {
+  .hero__col {
+    margin-inline: auto;
+  }
+  .hero__copy,
+  .hero__punch {
+    align-self: start;
+    align-items: start;
+    padding-top: calc(var(--nav-top) + var(--nav-height) + var(--space-6));
+  }
+  .hero__punch h2 {
+    font-size: var(--text-4xl);
+  }
+  .hero__actions .btn--ghost,
+  .hero__hint {
+    display: none;
+  }
+}
+
+/* Both headline blocks sit on the photo: give the copy a soft cream halo */
+.hero__copy .hero__col,
+.hero__punch .hero__col {
+  padding: var(--space-6);
+  border-radius: var(--r-xl);
+  background: radial-gradient(closest-side, rgba(255, 247, 234, 0.85), rgba(255, 247, 234, 0.55) 70%, rgba(255, 247, 234, 0));
+}
+
+.hero__copy .hero__title,
+.hero__copy .hero__lede,
+.hero__punch h2,
+.hero__punch .hero__lede {
+  text-shadow: 0 0 14px var(--cream), 0 0 28px var(--cream);
+}

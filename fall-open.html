@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>BUCD Aggie Open</title>
+    <meta name="description" content="The Davis Fall Open - Hosted by the Badminton Club at UC Davis." />
+    <meta name="theme-color" content="#1f2539" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  </head>
+  <body data-page="fall-open">
+    <div data-mount="nav"></div>
+
+    <main>
+      <!-- ══════════════════════════════════════════════════════
+           All content on this page comes from src/data/fallOpen.ts
+           ══════════════════════════════════════════════════════ -->
+
+      <!-- SECTION: PAGE HEADER -->
+      <header class="page-hero page-hero--fall" style="padding-bottom: var(--space-9)">
+        <div class="container">
+          <span class="kicker">Tournament</span>
+          <h1 data-fo-headline>HNDRD Aggie Open</h1>
+          <p class="lede" data-fo-tagline></p>
+          <div class="btn-row mt-6">
+            <a class="btn btn--gold btn--lg" href="#" data-fo-register>Register</a>
+            <a class="btn btn--ghost btn--lg" href="#schedule">Schedule</a>
+          </div>
+          <div class="promo__facts mt-7" data-mount="fo-facts" style="max-width: 44rem"></div>
+        </div>
+        <div class="page-hero__deco" data-fo-deco aria-hidden="true"></div>
+      </header>
+
+      <!-- SECTION: NUMBERS -->
+      <section class="section" aria-label="Tournament at a glance">
+        <div class="container">
+          <div class="stats" data-mount="fo-stats" data-stagger="90"></div>
+        </div>
+      </section>
+
+      <!-- SECTION: ABOUT THE OPEN -->
+      <section class="section section--paper">
+        <div class="container split">
+          <div class="split__body" data-reveal="left">
+            <span class="kicker">The Innaugural Aggie Open</span>
+            <h2>One of the largest badminton tournament in Northern California.</h2>
+            <p class="lede mt-4">
+              For the first time ever, the Badminton Club at UC Davis presents The Aggie Open! A 2-day tournament hosted at
+              Elite Badminton Center in Union City, CA. With HNDRD as our sponsor, we offer unique cash and material prizes,
+              as well as a chance to compete against some of the best players in Northern California. Hosted by seasoned tournament organizers,
+              come participate in a historic event!
+            </p>
+            <p class="lede">
+              Davis-themed trophies, cash prizes and tournament shirts await the winners.
+            </p>
+          </div>
+          <div class="split__media" data-reveal="right">
+            <img src="/img/davis_open/uc-center.jpg" alt="The University Credit Union Center arena" loading="lazy" />
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION: EVENT CATEGORIES -->
+      <section class="section">
+        <div class="container">
+          <div class="section-head" data-reveal>
+            <span class="kicker">Events</span>
+            <h2>Find your bracket.</h2>
+            <p class="lede mt-4">Events are split by level so every player gets competitive matches.</p>
+          </div>
+          <div class="cards" data-mount="fo-categories" data-stagger="100"></div>
+        </div>
+      </section>
+
+      <!-- SECTION: SCHEDULE -->
+      <section class="section section--paper" id="schedule">
+        <div class="container split">
+          <div data-reveal="left">
+            <span class="kicker">Schedule</span>
+            <h2>Two days of play.</h2>
+            <p class="lede mt-4">
+              Times are provisional and will be confirmed with the draw. Check Discord for live
+              updates on the day.
+            </p>
+          </div>
+          <div class="timeline" data-mount="fo-schedule" data-reveal="right"></div>
+        </div>
+      </section>
+
+      <!-- SECTION: GALLERY -->
+      <section class="section section--rust">
+        <div class="container">
+          <div class="section-head" data-reveal>
+            <span class="kicker">Previous years</span>
+            <h2>What it looks like.</h2>
+          </div>
+          <div class="strip" data-mount="fo-gallery"></div>
+        </div>
+      </section>
+
+      <!-- SECTION: SPONSORS (hidden until src/data/fallOpen.ts → sponsors has entries) -->
+      <section class="section section--paper section--sponsors" data-fo-sponsors hidden>
+        <div class="container">
+          <div class="section-head section-head--center" data-reveal>
+            <span class="kicker">Sponsors</span>
+            <h2>Thank you to our partners.</h2>
+          </div>
+          <div class="sponsors" data-mount="fo-sponsors"></div>
+        </div>
+      </section>
+
+      <!-- SECTION: FAQ -->
+      <section class="section">
+        <div class="container--narrow">
+          <div class="section-head" data-reveal>
+            <span class="kicker">FAQ</span>
+            <h2>Good questions.</h2>
+          </div>
+          <div class="faq" data-mount="fo-faq" data-stagger="70"></div>
+        </div>
+      </section>
+
+      <!-- SECTION: UPDATES CTA -->
+      <section class="section section--rust cta-band" id="updates">
+        <div class="container" data-reveal>
+          <span class="kicker" style="justify-content: center">Stay in the loop</span>
+          <h2>Registration drops on Instagram and Discord first.</h2>
+          <div class="btn-row">
+            <a class="btn btn--gold btn--lg" href="https://www.instagram.com/badminton_ucd/" target="_blank" rel="noopener">Follow @badminton_ucd</a>
+            <a class="btn btn--ghost btn--lg" href="https://discord.gg/bssTuRwBZx" target="_blank" rel="noopener">Join the Discord</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div data-mount="footer"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

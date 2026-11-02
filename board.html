@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>BUCD Board</title>
+    <meta name="description" content="[Page description]" />
+    <meta name="theme-color" content="#022851" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  </head>
+  <body data-page="board">
+    <div data-mount="nav"></div>
+
+    <main>
+      <!-- SECTION: PAGE HEADER -->
+      <header class="page-hero page-hero--board">
+        <div class="container">
+          <span class="kicker"><span data-board-year></span> [Kicker]</span>
+          <h1>Officer Board</h1>
+          <p class="lede">
+             [Blurb]
+          </p>
+        </div>
+      </header>
+
+      <!-- SECTION: OFFICERS  (src/data/officers.ts) -->
+      <section class="section">
+        <div class="container">
+          <div class="officers" data-mount="officers" data-stagger="60"></div>
+        </div>
+      </section>
+
+      <!-- SECTION: CTA -->
+      <section class="section section--navy-deep cta-band">
+        <div class="container" data-reveal>
+          <span class="kicker" style="justify-content: center">[Kicker]</span>
+          <h2>Want to join the Club?</h2>
+          <p class="lede" style="margin: var(--space-4) auto 0; text-align: center">
+            Elections happen every spring. Ask any officer how to get involved.
+          </p>
+          <div class="btn-row">
+            <a class="btn btn--gold btn--lg" href="mailto:davisbadminton@gmail.com">Email the board</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div data-mount="footer"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
