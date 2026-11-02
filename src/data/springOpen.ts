@@ -21,5 +21,5 @@ export const springOpen = {
 
   /** MDX page slug (src/content/events/<slug>.mdx) */
   slug: 'davis-spring-open',
-  art: '/img/art/spring-open-art-blue.png',
+  art: '/img/art/spring-open-art-blue.webp',
 };

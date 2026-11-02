@@ -14,7 +14,7 @@ export function init(): void {
       (g, i) => html`
         <article class="card goal">
           <span class="goal__num">0${i + 1}</span>
-          <img class="goal__art" src="/img/art/moo-shuttle-blue.png" alt="" aria-hidden="true" loading="lazy" />
+          <img class="goal__art" src="/img/art/moo-shuttle-blue.webp" alt="" aria-hidden="true" loading="lazy" />
           <span class="card__meta">${g.kicker}</span>
           <h3>${g.title}</h3>
           <p>${g.body}</p>

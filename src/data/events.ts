@@ -39,7 +39,7 @@ export const events: ClubEvent[] = [
     description:
       'Open-gym practices three times a week with courts for every skill level. Birds are provided and officers are on hand to supervise.',
     icon: 'racket',
-    photo: '/img/team_photos/team-2025.jpg',
+    photo: '/img/team_photos/team-2025.webp',
     featured: true,
   },
   {
@@ -49,7 +49,7 @@ export const events: ClubEvent[] = [
     description:
       'Several meets each quarter where our roster faces off against schools like SJSU, UCSC, Stanford and UC Berkeley in competitive matches for points.',
     icon: 'trophy',
-    photo: '/img/meets/berkeley_2025_3.jpg',
+    photo: '/img/meets/berkeley_2025_3.webp',
     featured: true,
   },
   {
@@ -59,7 +59,7 @@ export const events: ClubEvent[] = [
     description:
       'From team trips to Irvine to weekly runs to boba outings, we prioritize any chance to make new memories together.',
     icon: 'heart',
-    photo: '/img/team_bonding/picnic_2026.jpeg',
+    photo: '/img/team_bonding/picnic_2026.webp',
     featured: true,
   },
   {
@@ -69,7 +69,7 @@ export const events: ClubEvent[] = [
     description:
       'A road trip to Irvine for the collegiate tournament, with coordinated travel, AirBnBs, food and a weekend of team bonding.',
     icon: 'car',
-    photo: '/img/team_bonding/irvine_2022_team.jpg',
+    photo: '/img/team_bonding/irvine_2022_team.webp',
   },
   {
     slug: 'collegiate-nationals',
@@ -78,7 +78,7 @@ export const events: ClubEvent[] = [
     description:
       'We represent Northern California at Nationals, defending our regional titles. In 2026 the team finished 3rd in the country.',
     icon: 'flag',
-    photo: '/img/boston/boston-team.jpg',
+    photo: '/img/boston/boston-team.webp',
   },
   {
     slug: 'year-end-banquet',
@@ -87,7 +87,7 @@ export const events: ClubEvent[] = [
     description:
       'Every year closes with a formal banquet to celebrate the season with catered food, awards, and a lot of photos.',
     icon: 'sparkle',
-    photo: '/img/banquet/bucd_banquet_team.JPG',
+    photo: '/img/banquet/bucd_banquet_team.webp',
   },
   {
     slug: 'davis-open',
@@ -96,6 +96,6 @@ export const events: ClubEvent[] = [
     description:
       'Our student-run tournament with 400+ entries across 20 events, hosted at the University Credit Union Center with 13 courts, trophies and cash prizes.',
     icon: 'shuttle',
-    photo: '/img/davis_open/davis-open-xin.jpg',
+    photo: '/img/davis_open/davis-open-xin.webp',
   },
 ];

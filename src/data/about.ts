@@ -64,15 +64,15 @@ export interface Photo {
 
 /** Photo gallery on the About page (and a subset on Home). Order = display order. */
 export const gallery: Photo[] = [
-  { src: '/img/team_photos/team-2024.jpg', alt: 'The 2025 team photo of the Badminton Club @ UCD', caption: 'Team 2025' },
-  { src: '/img/collegiate/Collegiate_2026_1.jpeg', alt: '3rd Place at USA Collegiate Championships 2026', caption: 'Nationals, Chicago, 2026' },
-  { src: '/img/team_photos/practice.jpg', alt: 'Funky Photo', caption: 'Practice Shenanigans' },
-  { src: '/img/meets/SJSU_2025.jpeg', alt: 'School-to-school match with SJSU', caption: 'SJSU joint Match' },
-  { src: '/img/banquet/banquet_2.jpg', alt: 'Banquet 2026', caption: 'Banquet 2026' },
-  { src: '/img/collegiate/collegiate-ding.jpg', alt: 'Regionals 2025', caption: '2nd Place Regionals 2025' },
-  { src: '/img/banquet/banquet_2026_1.JPG', alt: 'Banquet 2026', caption: 'Pool Party!' },
-  { src: '/img/team_bonding/kickback.jpg', alt: 'the gang', caption: 'Fun get-togethers' },
+  { src: '/img/team_photos/team-2024.webp', alt: 'The 2025 team photo of the Badminton Club @ UCD', caption: 'Team 2025' },
+  { src: '/img/collegiate/Collegiate_2026_1.webp', alt: '3rd Place at USA Collegiate Championships 2026', caption: 'Nationals, Chicago, 2026' },
+  { src: '/img/team_photos/practice.webp', alt: 'Funky Photo', caption: 'Practice Shenanigans' },
+  { src: '/img/meets/SJSU_2025.webp', alt: 'School-to-school match with SJSU', caption: 'SJSU joint Match' },
+  { src: '/img/banquet/banquet_2.webp', alt: 'Banquet 2026', caption: 'Banquet 2026' },
+  { src: '/img/collegiate/collegiate-ding.webp', alt: 'Regionals 2025', caption: '2nd Place Regionals 2025' },
+  { src: '/img/banquet/banquet_2026_1.webp', alt: 'Banquet 2026', caption: 'Pool Party!' },
+  { src: '/img/team_bonding/kickback.webp', alt: 'the gang', caption: 'Fun get-togethers' },
   { src: '/img/team_bonding/boston_2024.webp', alt: 'Boston Trip 2024 Booth', caption: 'Boston 2024!', shape: 'tall' },
-  { src: '/img/team_bonding/big_xin.jpeg', alt: 'Xin at the Feast', caption: 'Big Backing', shape: 'tall' },
-  { src: '/img/grads/grad-throw.jpg', alt: 'Graduates 2025', caption: 'Grads 2025', shape: 'wide' },
+  { src: '/img/team_bonding/big_xin.webp', alt: 'Xin at the Feast', caption: 'Big Backing', shape: 'tall' },
+  { src: '/img/grads/grad-throw.webp', alt: 'Graduates 2025', caption: 'Grads 2025', shape: 'wide' },
 ];

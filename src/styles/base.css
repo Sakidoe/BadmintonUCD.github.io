@@ -153,7 +153,7 @@ p {
 .section--fall-navy {
   background:
     linear-gradient(rgba(215, 221, 234, 0.6), rgba(215, 221, 234, 0.6)),
-    #d7ddea url('/img/davis_open/uc-center.jpg') center / cover no-repeat;
+    #d7ddea url('/img/davis_open/uc-center.webp') center / cover no-repeat;
   padding-block: 0;
 }
 
@@ -469,14 +469,14 @@ p {
 .page-hero--about {
   background:
     linear-gradient(rgba(255, 247, 234, 0.72), rgba(255, 247, 234, 0.72)),
-    var(--cream) url('/img/grads/about-hero-grads.jpg') center 35% / cover no-repeat;
+    var(--cream) url('/img/grads/about-hero-grads.webp') center 35% / cover no-repeat;
 }
 
 /* Board page header — grads photo, same cream wash as the About header */
 .page-hero--board {
   background:
     linear-gradient(rgba(255, 247, 234, 0.72), rgba(255, 247, 234, 0.72)),
-    var(--cream) url('/img/grads/board-hero-grads.jpg') center 45% / cover no-repeat;
+    var(--cream) url('/img/grads/board-hero-grads.webp') center 45% / cover no-repeat;
 }
 
 .page-hero h1 {

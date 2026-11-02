@@ -78,81 +78,116 @@ meta['sparkles'] = pieces
 remove = racket_mask | swoosh | shuttle | sparkle
 body_alpha = opaque & ~remove
 # Where the grip crosses the paw, the racket layer takes pixels that belong to
-# the arm. Repair it geometrically:
-#   1. find where the handle cuts the arm's outline,
-#   2. bridge that notch with a disc closing, which meets the surrounding edge
-#      tangentially — the channel the handle carved inside the paw then becomes
-#      an enclosed hole, so filling holes closes it too,
-#   3. re-render outline + fill from the signed distance field of the completed
-#      silhouette, giving the stroke the same weight and anti-aliasing as the
-#      rest of the artwork.
-# Only pixels the racket actually removed get repainted, so nothing the artist
-# drew is touched and the repair leaves no seam.
+# the arm (its outline and the cream inside it). Rebuild them from the outline
+# the artist drew either side of the grip:
+#   1. sample the outline in polar coordinates around the paw (inner and outer
+#      edge radius per angle, sub-pixel, from the untouched artwork),
+#   2. fit a smooth curve through the stroke's centre line and its width on both
+#      sides of the gap and bridge the hidden stretch with it — the fit matches
+#      the drawn edge to ~0.1 px at the hand-off, so there is no step,
+#   3. paint ink / cream / transparency from that curve with the same edge
+#      anti-aliasing as the art, blending in over a few degrees, and fill the
+#      rest of what the grip covered inside the paw with the paw's cream.
+lost = remove & opaque
 dark = (rgb.sum(axis=2) < 200) & opaque
 ends = dark & ndi.binary_dilation(brown, iterations=4)
 ey, ex = np.where(ends)
-CROSS = (int(ex.mean()), int(ey.mean()))     # middle of the gap in the outline
-WIN, GUARD = 240, 78
-
-x0, x1 = CROSS[0] - WIN, CROSS[0] + WIN
-y0, y1 = CROSS[1] - WIN, CROSS[1] + WIN
+CROSS = (float(ex.mean()), float(ey.mean()))     # middle of the gap in the outline
+WIN = 240
+x0, x1 = int(CROSS[0]) - WIN, int(CROSS[0]) + WIN
+y0, y1 = int(CROSS[1]) - WIN, int(CROSS[1]) + WIN
 sl = (slice(y0, y1), slice(x0, x1))
-local_r = np.hypot(X[sl] - CROSS[0], Y[sl] - CROSS[1])
 
-# stroke weight, measured off the artwork itself either side of the gap
-probe = dark[sl] & ~ndi.binary_dilation(brown, iterations=10)[sl] & (local_r < 150)
-STROKE = 2 * np.percentile(ndi.distance_transform_edt(probe)[probe], 97)
-
-# 1 + 2: complete the silhouette. The arm's edge is convex here, so a disc
-# closing would cut a chord across the gap and pull the outline inward; fit the
-# real boundary arc instead (robust circle fit, outliers dropped) and complete
-# along it. The channel the handle carved inside the paw is then enclosed, so
-# filling holes closes it as well.
+# polar centre: circle fitted to the paw's outer edge near the crossing
 sub = body_alpha[sl]
-edge = sub & ~ndi.binary_erosion(sub)
-outer = edge & ndi.binary_dilation(~(opaque[sl] | remove[sl]), iterations=2)
-band = outer & (local_r > 40) & (local_r < 130)
-py_, px_ = np.where(band)
+local_r = np.hypot(X[sl] - CROSS[0], Y[sl] - CROSS[1])
+outer = sub & ~ndi.binary_erosion(sub) & ndi.binary_dilation(~opaque[sl], iterations=2)
+py_, px_ = np.where(outer & (local_r > 40) & (local_r < 160))
 pts = np.stack([px_ + x0, py_ + y0], 1).astype(float)
-for _ in range(4):
+for _ in range(5):
     M = np.stack([pts[:, 0], pts[:, 1], np.ones(len(pts))], 1)
-    D_, E_, F_ = np.linalg.lstsq(M, -(pts[:, 0] ** 2 + pts[:, 1] ** 2), rcond=None)[0]
+    D_, E_, F_ = np.linalg.lstsq(M, -(pts ** 2).sum(1), rcond=None)[0]
     ccx, ccy = -D_ / 2, -E_ / 2
     crad = np.sqrt(ccx ** 2 + ccy ** 2 - F_)
     resid = np.abs(np.hypot(pts[:, 0] - ccx, pts[:, 1] - ccy) - crad)
-    keep = resid < max(6.0, np.percentile(resid, 75))
-    if keep.sum() < 30:
-        break
-    pts = pts[keep]
-inside = np.hypot(X[sl] - ccx, Y[sl] - ccy) <= crad
-bridged = sub | (inside & (local_r < GUARD))
-full = body_alpha.copy()
-full[sl] = bridged
-full = ndi.binary_fill_holes(full)
-bridged = full[sl]
+    pts = pts[resid < max(4.0, np.percentile(resid, 80))]
 
-# 3: render outline + fill from the signed distance field
-d = ndi.distance_transform_edt(bridged) - ndi.distance_transform_edt(~bridged)
-cover = np.clip(d + 0.5, 0, 1)
-ink = np.clip(STROKE - d + 0.5, 0, 1) * cover
-ink_c = ink[..., None]
-rebuilt = ink_c * np.array([8.0, 8.0, 8.0]) + (1 - ink_c) * np.array([255.0, 248.0, 236.0])
+# 1: radial edge profile of the outline, skipping any ray the grip touches
+A0 = np.where(body_alpha, alpha / 255.0, 0.0)
+L0 = rgb.mean(axis=2) / 255.0
+th = np.arange(90.0, 290.0, 0.25)
+rs = np.arange(max(5.0, crad - 90), crad + 50, 0.1)
+r_in = np.full(len(th), np.nan); r_out = r_in.copy()
+xing = lambda v, j: rs[j - 1] + (v[j - 1] - 0.5) / (v[j - 1] - v[j]) * (rs[j] - rs[j - 1])
+for i, t in enumerate(np.radians(th)):
+    xs, ys = ccx + rs * np.cos(t), ccy + rs * np.sin(t)
+    A = ndi.map_coordinates(A0, [ys, xs], order=1)
+    Lm = ndi.map_coordinates(L0, [ys, xs], order=1)
+    Lo = ndi.map_coordinates(lost.astype(float), [ys, xs], order=1) > 0
+    ink = (Lm < 0.5) & (A > 0.5)
+    if not ink.any():
+        continue
+    ji = int(np.argmax(ink))
+    after = np.where((A < 0.5) & (np.arange(len(rs)) > ji))[0]
+    if ji == 0 or not len(after):
+        continue
+    jo = int(after[0])
+    if Lo[max(0, ji - 60):jo + 60].any() or Lm[ji - 1] < 0.5 or A[ji - 1] < 0.5:
+        continue
+    r_in[i], r_out[i] = xing(Lm, ji), xing(A, jo)
+okp = ~np.isnan(r_in)
+near_cross = np.degrees(np.arctan2(CROSS[1] - ccy, CROSS[0] - ccx)) % 360
+gap_th = th[~okp & (np.abs(th - near_cross) < 40)]
+G0, G1 = float(gap_th.min()), float(gap_th.max())
 
-lost = (remove & opaque & ~body_alpha)[sl] | (bridged & ~sub)
-# wide, soft hand-off so any sub-pixel difference in stroke weight between
-# the rebuilt band and the artist's leans in gradually instead of stepping
-w = np.clip(ndi.gaussian_filter(ndi.binary_dilation(lost, iterations=3).astype(float), 3.6) * 1.55, 0, 1)
-w_c = w[..., None]
+# 2: smooth bridge (centre line cubic, width linear) fitted 20° either side
+SPAN = 20.0
+fit = okp & (th > G0 - SPAN) & (th < G1 + SPAN)
+tm = (G0 + G1) / 2
+pc = np.polyfit(th[fit] - tm, ((r_in + r_out) / 2)[fit], 3)
+pw = np.polyfit(th[fit] - tm, (r_out - r_in)[fit], 1)
+STROKE = float(np.polyval(pw, 0))
+
+# 3: paint it
+rr = np.hypot(X[sl] - ccx, Y[sl] - ccy)
+tt = np.degrees(np.arctan2(Y[sl] - ccy, X[sl] - ccx)) % 360
+rc = np.polyval(pc, tt - tm); hw = np.polyval(pw, tt - tm) / 2
+ri_, ro_ = rc - hw, rc + hw
+cover = np.clip(ro_ - rr + 0.5, 0, 1)
+inkc = np.clip(rr - ri_ + 0.5, 0, 1) * cover
+paw = opaque & ~dark & (L0 > 0.9)
+CREAM = np.median(rgb[sl][paw[sl] & (rr < crad - 40) & ~lost[sl]], axis=0)
+FEATHER = 4.0
+ang = np.clip(np.minimum(tt - (G0 - FEATHER), (G1 + FEATHER) - tt) / FEATHER, 0, 1)
+ang = 0.5 - 0.5 * np.cos(np.pi * ang)               # smooth 0→1 ramp into the gap
+w = ang * ((rr > ri_ - 10) & (rr < ro_ + 6))
+
+# everything else the grip covered inside the paw → cream
+done = body_alpha.copy()
+done[sl] |= (w > 0) & (cover > 0.5)
+inside = ndi.binary_fill_holes(done)
+fill = (lost & inside)[sl] & (w == 0)
 
 body = im.astype(np.uint8).copy()
 body[~body_alpha] = 0
 win = body[sl].astype(float)
-win[..., :3] = w_c * rebuilt + (1 - w_c) * win[..., :3]
-win[..., 3] = w * cover * 255 + (1 - w) * win[..., 3]
-body[sl] = np.clip(win, 0, 255).astype(np.uint8)
+a_old = win[..., 3:] / 255.0
+pre_old = win[..., :3] * a_old                        # premultiplied
+pre_new = ((1 - inkc) * cover)[..., None] * CREAM
+a_new = cover[..., None]
+w_c = w[..., None]
+a = w_c * a_new + (1 - w_c) * a_old
+pre = w_c * pre_new + (1 - w_c) * pre_old
+win[..., :3] = np.where(a > 0, pre / np.maximum(a, 1e-6), 0)
+win[..., 3] = a[..., 0] * 255
+win[fill, :3] = CREAM; win[fill, 3] = 255
+touch = (w > 0) | fill                                # leave every other pixel as drawn
+body_win = body[sl]
+body_win[touch] = np.clip(np.round(win[touch]), 0, 255).astype(np.uint8)
+
+print('patch: gap %.1f°–%.1f°, stroke %.2f px, paw r %.1f' % (G0, G1, STROKE, crad))
 
 new_alpha = body[..., 3] > 0
-print('patch: cross', CROSS, 'stroke', round(STROKE, 1), 'px, arc r', round(crad, 1))
 
 ys, xs = np.where(new_alpha)
 y0, y1, x0, x1 = ys.min(), ys.max() + 1, xs.min(), xs.max() + 1

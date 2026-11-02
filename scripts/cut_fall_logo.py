@@ -1,5 +1,5 @@
 """Splits scripts/fall-logo-source.png (the brown Davis Open logo) into two clean
-assets without the lettering: public/img/art/fall-cow.png and fall-croissant.png.
+assets without the lettering: images-src/art/fall-cow.png and fall-croissant.png.
 Lettering is detected by stroke thickness (letters are thick, art outlines are thin)."""
 import os
 import numpy as np
@@ -8,7 +8,7 @@ from scipy import ndimage as ndi
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, 'scripts', 'fall-logo-source.png')
-OUT = os.path.join(ROOT, 'public', 'img', 'art')
+OUT = os.path.join(ROOT, 'images-src', 'art')  # originals; run `npm run images` to publish
 
 im = np.array(Image.open(SRC).convert('RGBA'))
 a = im[..., 3] > 0

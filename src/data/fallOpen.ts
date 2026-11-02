@@ -74,17 +74,17 @@ export const fallOpen = {
 
   /** Photos from previous Davis Opens, shown in the gallery strip */
   gallery: [
-    { src: '/img/davis_open/davis-open-1.jpg', alt: 'Player lunging for a shot at the Davis Open' },
-    { src: '/img/davis_open/davis-open-bianca-justin.jpg', alt: 'Mixed doubles rally at the Davis Open' },
-    { src: '/img/davis_open/davis-open-tiff.jpg', alt: 'Women’s singles at the Davis Open' },
-    { src: '/img/davis_open/davis-open-steffi-josh.jpg', alt: 'Doubles jump smash at the Davis Open' },
-    { src: '/img/davis_open/davis-open-charlie.jpg', alt: 'Trophy winners at the Davis Open' },
-    { src: '/img/davis_open/davis-open-xin.jpg', alt: 'Singles rally at the Davis Open' },
-    { src: '/img/davis_open/davis-open-team.jpg', alt: 'Volunteers and organisers at the Davis Open' },
+    { src: '/img/davis_open/davis-open-1.webp', alt: 'Player lunging for a shot at the Davis Open' },
+    { src: '/img/davis_open/davis-open-bianca-justin.webp', alt: 'Mixed doubles rally at the Davis Open' },
+    { src: '/img/davis_open/davis-open-tiff.webp', alt: 'Women’s singles at the Davis Open' },
+    { src: '/img/davis_open/davis-open-steffi-josh.webp', alt: 'Doubles jump smash at the Davis Open' },
+    { src: '/img/davis_open/davis-open-charlie.webp', alt: 'Trophy winners at the Davis Open' },
+    { src: '/img/davis_open/davis-open-xin.webp', alt: 'Singles rally at the Davis Open' },
+    { src: '/img/davis_open/davis-open-team.webp', alt: 'Volunteers and organisers at the Davis Open' },
   ],
 
   /** Sponsor logos — add { name, logo, href } entries when you have them */
   sponsors: [
-    { name: 'HNDRD', logo: '/img/art/HNDRD_logo_2.jpg'}
+    { name: 'HNDRD', logo: '/img/art/HNDRD_logo_2.webp'}
   ] as { name: string; logo: string; href?: string }[],
 };

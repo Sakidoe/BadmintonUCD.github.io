@@ -17,7 +17,7 @@ export function mountFooter(): void {
         <div class="footer__grid">
           <div>
             <div class="footer__brand">
-              <span class="nav__brand-mark"><img src="/img/art/cow-mark.png" alt="" /></span>
+              <span class="nav__brand-mark"><img src="/img/art/cow-mark.webp" alt="" /></span>
               ${site.name}
             </div>
             <p class="mt-4">

@@ -23,7 +23,7 @@ function template() {
     <div class="nav-wrap">
       <nav class="nav" aria-label="Main">
         <a class="nav__brand" href="/">
-          <span class="nav__brand-mark"><img src="/img/art/cow-mark.png" alt="" /></span>
+          <span class="nav__brand-mark"><img src="/img/art/cow-mark.webp" alt="" /></span>
           <span class="nav__brand-text">${site.shortName}</span>
         </a>
 
@@ -36,8 +36,8 @@ function template() {
           <span class="nav__cta-dot" aria-hidden="true"></span>
           <span class="nav__cta-label-long">${cta.label}</span>
           <span class="nav__cta-label-short">${cta.shortLabel}</span>
-          <img class="nav__cta-logo nav__cta-logo--full" src="/img/art/hndrd-wordmark-navy.png" alt="HNDRD" />
-          <img class="nav__cta-logo nav__cta-logo--mark" src="/img/art/hndrd-mark-navy.png" alt="" aria-hidden="true" />
+          <img class="nav__cta-logo nav__cta-logo--full" src="/img/art/hndrd-wordmark-navy.webp" alt="HNDRD" />
+          <img class="nav__cta-logo nav__cta-logo--mark" src="/img/art/hndrd-mark-navy.webp" alt="" aria-hidden="true" />
         </a>
 
         <div class="nav__links" data-nav-group>
