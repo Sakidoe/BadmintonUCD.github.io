@@ -925,7 +925,7 @@
    corners (the card reserves room for it); on wide screens each piece gets
    its own side gutter, vertically centred. --art-w drives both. */
 .promo--fall {
-  --art-w: clamp(7.5rem, 22vw, 11rem);
+  --art-w: clamp(6rem, 18vw, 8.5rem);
   --promo-grid-w: 2px;
   padding-bottom: calc(var(--art-w) * 1.25 + 2.5rem);
 }
@@ -955,7 +955,7 @@
 
 @media (min-width: 1360px) {
   .promo--fall {
-    --art-w: clamp(9rem, 10.5vw, 10rem);
+    --art-w: clamp(8rem, 9vw, 9.5rem);
     grid-template-columns: 1.2fr 1fr;
     padding-bottom: clamp(2rem, 1.5rem + 3vw, 4rem);
     padding-inline: calc(var(--art-w) + 2.5rem);

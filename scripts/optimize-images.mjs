@@ -26,6 +26,9 @@ const FORCE = process.argv.includes('--force');
 const PHOTO = { maxEdge: 2000, webp: { quality: 80, effort: 5, smartSubsample: true } };
 /** Folders whose photos only ever show small (e.g. the board's portrait cards). */
 const MAX_EDGE_BY_FOLDER = { officers: 1200 };
+/** Artwork exported on a big empty canvas: crop to the drawing so CSS sizes the art, not the padding.
+ *  Value = longest edge after cropping (these only ever show small). */
+const TRIM = { 'art/aggie_open_2026_logo_1': 600, 'art/aggie_open_2026_logo_2': 600 };
 /** Artwork with transparency (logos, mascots): crisp edges, keep alpha. */
 const ART = { maxEdge: 1600, webp: { quality: 90, alphaQuality: 100, effort: 5 } };
 /** Animated GIF/WebP. */
@@ -54,11 +57,16 @@ async function convert(src, dst) {
   const meta = await sharp(src).metadata();
   const animated = (meta.pages ?? 1) > 1;
   const preset = animated ? ANIM : meta.hasAlpha && ext !== '.jpg' && ext !== '.jpeg' ? ART : PHOTO;
-  const folder = relative(SRC, src).split(/[\\/]/)[0];
-  const edge = Math.min(preset.maxEdge, MAX_EDGE_BY_FOLDER[folder] ?? Infinity);
-  const img = sharp(src, { animated, limitInputPixels: false })
-    .rotate() // apply the camera's EXIF orientation, then drop all metadata (incl. GPS)
-    .resize({ width: edge, height: edge, fit: 'inside', withoutEnlargement: true });
+  const rel = relative(SRC, src).split(/[\\/]/).join('/');
+  const folder = rel.split('/')[0];
+  const trim = TRIM[rel.slice(0, -extname(rel).length)];
+  const edge = Math.min(preset.maxEdge, MAX_EDGE_BY_FOLDER[folder] ?? Infinity, trim ?? Infinity);
+  let img = sharp(src, { animated, limitInputPixels: false }).rotate(); // apply the camera's EXIF orientation, then drop all metadata (incl. GPS)
+  if (trim) {
+    // trim runs before resize; extend after it, leaving a hair of room so strokes aren't clipped
+    img = img.trim({ threshold: 1 }).extend({ top: 6, bottom: 6, left: 6, right: 6, background: { r: 0, g: 0, b: 0, alpha: 0 } });
+  }
+  img = img.resize({ width: edge, height: edge, fit: 'inside', withoutEnlargement: true });
   await img.webp(preset.webp).toFile(dst);
   // An already-small WebP source can come out bigger after re-encoding: keep the original then.
   if (ext === '.webp' && (await stat(dst)).size > (await stat(src)).size) await copyFile(src, dst);
