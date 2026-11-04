@@ -975,6 +975,110 @@
   }
 }
 
+/* ── Partners & supporters (home) ───────────────────────── */
+
+/* the hero's "Donate" button scrolls here: land the heading just under the floating nav */
+.support {
+  scroll-margin-top: calc(var(--nav-top) + var(--nav-height) + 1.25rem - var(--section-y));
+}
+
+.support .section-head {
+  margin-bottom: var(--space-6);
+}
+
+.support__grid {
+  display: grid;
+  gap: var(--space-7);
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .support__grid {
+    grid-template-columns: 1fr 1.1fr;
+    gap: var(--space-9);
+  }
+}
+
+/* partners: a paper sticker card holding the logo tiles */
+.support__partners {
+  padding: clamp(1.5rem, 1rem + 2vw, 2.25rem);
+  border: var(--stroke) solid var(--ink);
+  border-radius: var(--r-xl);
+  background: var(--paper);
+  box-shadow: var(--sticker-shadow-lg);
+  transform: rotate(-1deg);
+}
+
+.support__label {
+  margin: 0 0 var(--space-5);
+  font-size: var(--text-xs);
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.partner-logos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+.partner-logos__item {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 3;
+  padding: clamp(1rem, 0.5rem + 2vw, 1.75rem);
+  border: var(--stroke-thin) solid var(--ink);
+  border-radius: var(--r-lg);
+  background: var(--cream);
+  transition: transform var(--dur) var(--ease-spring);
+}
+
+.partner-logos__item:nth-child(even) {
+  background: var(--blue-2);
+}
+
+.partner-logos__item:hover {
+  transform: translateY(-3px) rotate(-2deg);
+}
+
+.partner-logos__item img {
+  width: 100%;
+  max-height: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* the wide wordmark reads small next to the square-ish UC Davis mark */
+.partner-logos__item img[src*='hndrd'] {
+  width: 92%;
+}
+
+.partner-logos__item img[src*='ucdlogo'] {
+  width: 68%;
+}
+
+.support__title {
+  font-size: var(--text-2xl);
+}
+
+.support__donate .lede + .lede {
+  margin-top: var(--space-4);
+}
+
+/* Donate buttons: filled coral heart that does a little beat instead of the arrow nudge */
+.btn--donate svg {
+  fill: var(--coral);
+}
+
+.btn--donate:hover svg {
+  transform: scale(1.2);
+}
+
 /* ── CTA band ───────────────────────────────────────────── */
 
 .cta-band {

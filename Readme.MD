@@ -22,3 +22,5 @@ Under Construction
 Began developing V3 of BUCD in April 2026, slowly building the template for the website. Proposed template in October 2026, and deployed publically on 11/01/2026. 
 Update 1.0 - Updated Cow png structure to close the hand structure.
 Update 1.01 - Updated Readme, and Updated board page
+Update 1.02 - Added CloudFlare tracking, to see website activities + Aggie Open Image resizing
+Update 1.03 - Restructured Index.html to add donate page, and donation section. Added images and changed buttons.
